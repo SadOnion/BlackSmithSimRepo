@@ -483,6 +483,9 @@ MonoBehaviour:
     titanum: 0
     cobalt: 0
     mythril: 0
+    inventory:
+      items: []
+  taxPaid: 0
 --- !u!224 &610929643
 RectTransform:
   m_ObjectHideFlags: 0

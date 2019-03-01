@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Hammer : MonoBehaviour {
 
-   
-    
+
+
     
     public GameObject sparkles;
     private float maxMotor;
@@ -35,10 +35,13 @@ public class Hammer : MonoBehaviour {
         m.motorSpeed = -hinge.motor.motorSpeed;
         m.maxMotorTorque = maxMotor;
         hinge.motor = m;
+        
         yield return new WaitForSeconds(0.2f);
+        
         m.motorSpeed = -hinge.motor.motorSpeed;
         hinge.motor = m;
-        yield return new WaitForSeconds(0.1f);
         
+        
+
     }
 }

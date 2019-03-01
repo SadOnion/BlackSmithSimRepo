@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SwordSlot
   - ShieldSlot
+  - GameOver
   layers:
   - Default
   - TransparentFX

@@ -41,7 +41,7 @@ public class CraftingManager : MonoBehaviour {
             {
                 player.Take(activeMetal, shieldCraftAmount);
                 CraftShield();
-                Invoke("ResetCraftPanel", 0.35f);
+                Invoke("ResetCraftPanel", 0.1f);
             }
             
         }
@@ -52,7 +52,7 @@ public class CraftingManager : MonoBehaviour {
             {
                 player.Take(activeMetal, swordCraftAmount);
                 CraftSword();
-                Invoke("ResetCraftPanel", 0.35f);
+                Invoke("ResetCraftPanel", 0.1f);
             }
             
         }
@@ -63,8 +63,7 @@ public class CraftingManager : MonoBehaviour {
     public void CraftSword()
     {
         Item item;
-        GameObject o = new GameObject("clone");
-        o.AddComponent<SpriteRenderer>();
+        
         switch (activeMetal)
         {
             case Metal.Bronze:
@@ -88,19 +87,14 @@ public class CraftingManager : MonoBehaviour {
                 item = Array.Find(items, x => x.name == "Bronze Sword");
                 break;
         }
-        o.GetComponent<SpriteRenderer>().sprite = item.icon;
-        Rigidbody2D body = o.AddComponent<Rigidbody2D>();
-        o.transform.position = spawnPosition.position;
-        body.velocity = new Vector2(3, 5);
-        body.AddTorque(100);
-        Destroy(o, 2);
+        
         player.inventory.Add(item);
+        InstantiateItem(item);
     }
     public void CraftShield()
     {
         Item item;
-        GameObject o = new GameObject("clone");
-        o.AddComponent<SpriteRenderer>();
+        
         switch (activeMetal)
         {
             case Metal.Bronze:
@@ -124,15 +118,27 @@ public class CraftingManager : MonoBehaviour {
         }
 
 
+       
+        
+       
+        
+      
+      
+
+        player.inventory.Add(item);
+        InstantiateItem(item);
+
+    }
+    private void InstantiateItem(Item item)
+    {
+        GameObject o = new GameObject("clone");
+        o.AddComponent<SpriteRenderer>();
         o.GetComponent<SpriteRenderer>().sprite = item.icon;
         Rigidbody2D body = o.AddComponent<Rigidbody2D>();
         o.transform.position = spawnPosition.position;
         body.velocity = new Vector2(3, 5);
         body.AddTorque(100);
         Destroy(o, 2);
-
-        player.inventory.Add(item);
-
     }
     public void ResetCraftPanel()
     {
@@ -141,13 +147,17 @@ public class CraftingManager : MonoBehaviour {
     }
     public bool CanMakeItem()
     {
+        float rot = FindObjectOfType<Hammer>().GetComponent<Transform>().rotation.eulerAngles.z;
+       
         if (shieldToggle.isOn)
         {
-            return player.HasEnoughMetal(activeMetal, shieldCraftAmount);
+
+
+            return player.HasEnoughMetal(activeMetal, shieldCraftAmount) && rot<120;
         }
         if (swordToggle.isOn)
         {
-            return player.HasEnoughMetal(activeMetal, swordCraftAmount);
+            return player.HasEnoughMetal(activeMetal, swordCraftAmount) && rot < 120;
         }
         return false;
     }

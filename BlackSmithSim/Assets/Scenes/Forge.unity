@@ -1416,6 +1416,7 @@ MonoBehaviour:
     mythril: 0
     inventory:
       items: []
+  taxPaid: 0
 --- !u!4 &208430704
 Transform:
   m_ObjectHideFlags: 0

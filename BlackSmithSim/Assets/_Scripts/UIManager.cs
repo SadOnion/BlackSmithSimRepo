@@ -67,13 +67,7 @@ public class UIManager : MonoBehaviour {
 		mythrilToggle.GetComponentInChildren<Text>().text = "Mythril:" + player.mythril;
     }
 
-    public void AllButtonsInteractable(bool interact)
-    {
-        foreach(Button b in buttonsDirection)
-        {
-            b.interactable = interact;
-        }
-    }
+   
     public Metal WhichMetalIsActive()
     {
         if (bronzeToggle.isOn) return Metal.Bronze;
@@ -85,6 +79,7 @@ public class UIManager : MonoBehaviour {
     }
     public void BuyMetal(int metalIndex)
     {
+        
         Metal m = (Metal)metalIndex;
         switch (m)
         {
@@ -93,6 +88,7 @@ public class UIManager : MonoBehaviour {
                 {
                     player.Take(Metal.Gold, bronzeValue);
                     player.Add(Metal.Bronze, 1);
+                    AudioManager.instance.Play("Buy");
                 }
                 break;
             case Metal.Iron:
@@ -100,6 +96,7 @@ public class UIManager : MonoBehaviour {
                 {
                     player.Take(Metal.Gold, ironValue);
                     player.Add(Metal.Iron, 1);
+                    AudioManager.instance.Play("Buy");
                 }
                 break;
             case Metal.Titanum:
@@ -107,6 +104,7 @@ public class UIManager : MonoBehaviour {
                 {
                     player.Take(Metal.Gold, titanumValue);
                     player.Add(Metal.Titanum, 1);
+                    AudioManager.instance.Play("Buy");
                 }
                 break;
             case Metal.Cobalt:
@@ -114,6 +112,7 @@ public class UIManager : MonoBehaviour {
                 {
                     player.Take(Metal.Gold, cobaltValue);
                     player.Add(Metal.Cobalt, 1);
+                    AudioManager.instance.Play("Buy");
                 }
                 break;
             case Metal.Mythril:
@@ -121,6 +120,7 @@ public class UIManager : MonoBehaviour {
                 {
                     player.Take(Metal.Gold, mythrilValue);
                     player.Add(Metal.Mythril, 1);
+                    AudioManager.instance.Play("Buy");
                 }
                 break;
         }

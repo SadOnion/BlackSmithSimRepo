@@ -6,11 +6,11 @@ using System.IO;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
-
+    public ScoreSerializer scoreSerializer;
     public SerializationManager serializationManager;
     public Player player;
     private static GameManager _instance;
-
+    public int taxPaid;
     private bool isGameActive = true;
     public static GameManager Instance
     {
@@ -34,8 +34,9 @@ public class GameManager : MonoBehaviour {
             return;
         }
         serializationManager = new SerializationManager();
+        scoreSerializer = new ScoreSerializer();
         DontDestroyOnLoad(gameObject);
-
+        
 
     }
 
@@ -46,7 +47,8 @@ public class GameManager : MonoBehaviour {
     }
     private void GameOver()
     {
-        SceneManager.LoadScene("MainMenu");
+        taxPaid = FindObjectOfType<TaxSystem>().taxPaid;
+        SceneManager.LoadScene("GameOver");
         isGameActive = false;
     }
     private void ChecForGameOver()
@@ -56,9 +58,11 @@ public class GameManager : MonoBehaviour {
     }
     public void NewGame()
     {
+       
         player = new Player();
+        taxPaid = 0;
+        SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
         isGameActive = true;
-        SceneManager.LoadScene("Forge");
 
     }
     public void LoadGame()
@@ -80,7 +84,7 @@ public class GameManager : MonoBehaviour {
                 item.name = i.name;
                 item.isSword = i.isSword;
                 item.succesModifier = i.succesModifier;
-                item.icon = Resources.Load<Sprite>(Path.GetFileNameWithoutExtension(i.icon));
+                item.icon = Resources.Load<Sprite>(i.name);
                 
                 player.inventory.Add(item);
             }
